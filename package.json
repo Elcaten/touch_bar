@@ -1,26 +1,32 @@
 {
   "name": "vscode-touch-bar",
+  "displayName": "Touch Bar",
   "version": "0.0.14",
   "description": "Touchbar Setting",
-  "main": "main.js",
+  "main": "./out/extension.js",
   "icon": "doc-images/icon.png",
   "scripts": {
-    "test": "npm test",
-    "publish": "vsce package",
-    "pack": "vsce package"
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pack": "vsce package",
+    "publish": "vsce publish"
   },
   "author": "Avni Onur Pehlivan @Augustpi",
   "publisher": "AvniOnurPehlivan",
   "license": "MIT",
-  "repository": "https://github.com/Augustpi/touch_bar",
-  "bugs": "https://github.com/Augustpi/touch_bar",
-  "homepage": "https://github.com/Augustpi/touch_bar",
-  "engines": {
-    "vscode": "^1.50.0"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Elcaten/touch_bar"
   },
-  "activationEvents": [
-    "*"
-  ],
+  "bugs": {
+    "url": "https://github.com/Elcaten/touch_bar/issues"
+  },
+  "homepage": "https://github.com/Elcaten/touch_bar",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "activationEvents": [],
   "categories": [
     "Other"
   ],
@@ -38,170 +44,106 @@
   "contributes": {
     "commands": [
       {
-        "command": "editor.action.revealDefinition",
-        "when": "editorFocus",
-        "title": "→ƒ",
-        "color": "red"
+        "command": "touchbar.back",
+        "title": "Touch Bar: Navigate Back"
       },
       {
-        "command": "editor.action.goToReferences",
-        "when": "editorFocus",
-        "title": "→Ref"
-      },
-      {
-        "command": "workbench.action.terminal.toggleTerminal",
-        "when": "editorFocus",
-        "title": "⬓"
-      },
-      {
-        "command": "workbench.action.showCommands",
-        "when": "editorFocus",
-        "title": ">_"
-      },
-      {
-        "command": "editor.action.blockComment",
-        "when": "editorHasMultipleSelections",
-        "title": "/* */"
-      },
-      {
-        "command": "editor.action.rename",
-        "when": "editorHasSelection",
-        "title": "✎_"
-      },
-      {
-        "command": "editor.action.blockComment",
-        "when": "editorHasSelection",
-        "title": "//"
-      },
-      {
-        "command": "workbench.action.toggleSidebarVisibility",
-        "title": "◧"
-      },
-      {
-        "command": "editor.action.copyLinesDownAction",
-        "when": "editorFocus",
-        "title": "☰↓"
-      },
-      {
-        "command": "workbench.action.terminal.focusNextPane",
-        "when": "terminalFocus",
-        "title": "←◧→"
-      },
-      {
-        "command": "workbench.action.splitEditor",
-        "when": "terminalFocus",
-        "title": "→◧"
-      },
-      {
-        "command": "editor.action.jumpToBracket",
-        "when": "editorFocus",
-        "title": "→}"
-      },
-      {
-        "command": "workbench.action.closePanel",
-        "when": "terminalFocus",
-        "title": "Close"
-      },
-      {
-        "command": "workbench.action.toggleMaximizedPanel",
-        "when": "terminalFocus",
-        "title": "Max–Min"
+        "command": "touchbar.forward",
+        "title": "Touch Bar: Navigate Forward"
       }
     ],
     "menus": {
       "touchBar": [
         {
           "command": "editor.action.revealDefinition",
-          "when": "editorFocus",
-          "title": "→ƒ"
+          "when": "editorFocus"
         },
         {
           "command": "editor.action.goToReferences",
-          "when": "editorFocus",
-          "title": "->Ref"
+          "when": "editorFocus"
         },
         {
           "command": "workbench.action.terminal.toggleTerminal",
-          "when": "editorFocus",
-          "title": "⬓"
+          "when": "editorFocus"
         },
         {
           "command": "workbench.action.showCommands",
-          "when": "editorFocus",
-          "title": ">_"
+          "when": "editorFocus"
         },
         {
           "command": "editor.action.blockComment",
-          "when": "editorHasMultipleSelections",
-          "title": "/* */"
+          "when": "editorHasMultipleSelections"
         },
         {
           "command": "editor.action.rename",
-          "when": "editorHasSelection",
-          "title": "✎_"
+          "when": "editorHasSelection"
         },
         {
           "command": "editor.action.blockComment",
-          "when": "editorHasSelection",
-          "title": "//"
+          "when": "editorHasSelection && !editorHasMultipleSelections"
         },
         {
           "command": "workbench.action.toggleSidebarVisibility",
-          "when": "editorFocus",
-          "title": "◧"
+          "when": "editorFocus"
         },
         {
           "command": "workbench.action.toggleSidebarVisibility",
-          "when": "terminalFocus",
-          "title": "◧"
+          "when": "terminalFocus"
         },
         {
           "command": "editor.action.copyLinesDownAction",
-          "when": "editorFocus",
-          "title": "☰↓"
+          "when": "editorFocus"
         },
         {
           "command": "workbench.action.terminal.focusNextPane",
-          "when": "terminalFocus",
-          "title": "←◧→"
+          "when": "terminalFocus"
         },
         {
           "command": "workbench.action.splitEditor",
-          "when": "editorFocus",
-          "title": "↝◧"
+          "when": "editorFocus"
         },
         {
           "command": "editor.action.jumpToBracket",
-          "when": "editorFocus",
-          "title": "→}"
+          "when": "editorFocus"
         },
         {
           "command": "workbench.action.closePanel",
-          "when": "terminalFocus",
-          "title": "Close"
+          "when": "terminalFocus"
         },
         {
           "command": "workbench.action.toggleMaximizedPanel",
-          "when": "terminalFocus",
-          "title": "Max–Min"
+          "when": "terminalFocus"
+        },
+        {
+          "command": "touchbar.back",
+          "when": "editorFocus"
+        },
+        {
+          "command": "touchbar.forward",
+          "when": "editorFocus"
         }
       ]
     },
     "configuration": {
       "type": "object",
-      "title": "touchbar",
+      "title": "Touch Bar",
       "properties": {
         "touchbar.back": {
           "type": "boolean",
           "default": true,
-          "description": "←"
+          "description": "Show navigate back button (←) on Touch Bar"
         },
         "touchbar.forward": {
           "type": "boolean",
           "default": true,
-          "description": "→"
+          "description": "Show navigate forward button (→) on Touch Bar"
         }
       }
     }
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@vscode/vsce": "^3.0.0",
+    "typescript": "^5.0.0"
   }
 }
