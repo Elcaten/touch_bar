@@ -1,0 +1,39 @@
+name: Release
+
+# Triggers when a GitHub Release is published.
+# To create a release: go to GitHub → Releases → "Draft a new release",
+# pick or create a tag (e.g. v0.0.15), fill in the title/notes, and click
+# "Publish release". This workflow will then build the .vsix and attach it.
+on:
+  release:
+    types: [published]
+
+jobs:
+  build-vsix:
+    name: Build and upload VSIX
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # needed to upload assets to the release
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Package extension
+        run: npx @vscode/vsce package --no-dependencies
+        # --no-dependencies skips bundling node_modules into the vsix
+        # (this extension has no runtime dependencies)
+
+      - name: Upload VSIX to release
+        run: gh release upload "${{ github.event.release.tag_name }}" *.vsix
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
