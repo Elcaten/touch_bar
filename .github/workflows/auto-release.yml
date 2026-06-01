@@ -7,8 +7,6 @@ name: Auto-release on version bump
 on:
   push:
     branches: [master]
-    paths:
-      - package.json
 
 jobs:
   auto-release:
