@@ -68,6 +68,10 @@
         "title": "✎_"
       },
       {
+        "command": "touchbar.editor.action.refactor",
+        "title": "⇄"
+      },
+      {
         "command": "touchbar.workbench.action.toggleSidebarVisibility",
         "title": "◧"
       },
@@ -120,6 +124,10 @@
         },
         {
           "command": "touchbar.editor.action.rename",
+          "when": "editorFocus"
+        },
+        {
+          "command": "touchbar.editor.action.refactor",
           "when": "editorFocus"
         },
         {
