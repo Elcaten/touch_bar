@@ -1,19 +1,17 @@
 name: Auto-release on version bump
 
 # Runs on every push to master.
-# If the version in package.json does not yet have a matching git tag,
-# a GitHub Release is created, the .vsix is built, and it is attached
-# to that release — all in one job.
-#
-# NOTE: a release created by GITHUB_TOKEN cannot trigger other workflow
-# files, so the build step lives here rather than in release.yml.
+# Checks whether the current package.json version already has a .vsix
+# attached to its release. If not (release missing entirely, or release
+# exists but VSIX was never uploaded), it builds the extension and
+# creates/uploads the asset. Fully idempotent.
 on:
   push:
     branches: [master]
 
 jobs:
   auto-release:
-    name: Release if version is new
+    name: Release if VSIX is missing
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -26,37 +24,46 @@ jobs:
         id: pkg
         run: echo "version=$(jq -r '.version' package.json)" >> "$GITHUB_OUTPUT"
 
-      - name: Check whether tag already exists
-        id: tag
+      - name: Check whether a .vsix asset already exists on this release
+        id: asset
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          if git ls-remote --tags origin "refs/tags/v${{ steps.pkg.outputs.version }}" \
-             | grep -q .; then
+          if gh release view "v${{ steps.pkg.outputs.version }}" \
+              --json assets --jq '.assets[].name' 2>/dev/null \
+              | grep -q '\.vsix$'; then
             echo "exists=true"  >> "$GITHUB_OUTPUT"
           else
             echo "exists=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Set up Node.js
-        if: steps.tag.outputs.exists == 'false'
+        if: steps.asset.outputs.exists == 'false'
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
 
       - name: Install dependencies
-        if: steps.tag.outputs.exists == 'false'
+        if: steps.asset.outputs.exists == 'false'
         run: npm ci
 
       - name: Package extension
-        if: steps.tag.outputs.exists == 'false'
+        if: steps.asset.outputs.exists == 'false'
         run: npx @vscode/vsce package --no-dependencies
 
-      - name: Create GitHub Release and upload VSIX
-        if: steps.tag.outputs.exists == 'false'
-        run: |
-          gh release create "v${{ steps.pkg.outputs.version }}" \
-            *.vsix \
-            --title "v${{ steps.pkg.outputs.version }}" \
-            --generate-notes
+      - name: Create release (if it does not exist yet) and upload VSIX
+        if: steps.asset.outputs.exists == 'false'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="v${{ steps.pkg.outputs.version }}"
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            # Release exists but has no .vsix — just upload the asset
+            gh release upload "$TAG" *.vsix
+          else
+            # No release yet — create it and include the .vsix
+            gh release create "$TAG" *.vsix \
+              --title "$TAG" \
+              --generate-notes
+          fi
