@@ -1,7 +1,7 @@
 {
   "name": "vscode-touch-bar",
   "displayName": "Touch Bar",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "Touchbar Setting",
   "main": "./out/extension.js",
   "icon": "doc-images/icon.png",
