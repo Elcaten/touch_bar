@@ -13,6 +13,7 @@ export function activate(context: vscode.ExtensionContext): void {
     wrap("touchbar.workbench.action.showCommands",                   "workbench.action.showCommands"),
     wrap("touchbar.editor.action.blockComment",                      "editor.action.blockComment"),
     wrap("touchbar.editor.action.rename",                            "editor.action.rename"),
+    wrap("touchbar.editor.action.refactor",                          "editor.action.refactor"),
     wrap("touchbar.workbench.action.toggleSidebarVisibility",        "workbench.action.toggleSidebarVisibility"),
     wrap("touchbar.editor.action.copyLinesDownAction",               "editor.action.copyLinesDownAction"),
     wrap("touchbar.workbench.action.terminal.focusNextPane",         "workbench.action.terminal.focusNextPane"),
