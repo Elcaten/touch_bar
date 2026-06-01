@@ -44,101 +44,121 @@
   "contributes": {
     "commands": [
       {
-        "command": "touchbar.back",
-        "title": "Touch Bar: Navigate Back"
+        "command": "touchbar.editor.action.revealDefinition",
+        "title": "→ƒ"
       },
       {
-        "command": "touchbar.forward",
-        "title": "Touch Bar: Navigate Forward"
+        "command": "touchbar.editor.action.goToReferences",
+        "title": "→Ref"
+      },
+      {
+        "command": "touchbar.workbench.action.terminal.toggleTerminal",
+        "title": "⬓"
+      },
+      {
+        "command": "touchbar.workbench.action.showCommands",
+        "title": ">_"
+      },
+      {
+        "command": "touchbar.editor.action.blockComment",
+        "title": "/* */"
+      },
+      {
+        "command": "touchbar.editor.action.rename",
+        "title": "✎_"
+      },
+      {
+        "command": "touchbar.workbench.action.toggleSidebarVisibility",
+        "title": "◧"
+      },
+      {
+        "command": "touchbar.editor.action.copyLinesDownAction",
+        "title": "☰↓"
+      },
+      {
+        "command": "touchbar.workbench.action.terminal.focusNextPane",
+        "title": "←◧→"
+      },
+      {
+        "command": "touchbar.workbench.action.splitEditor",
+        "title": "↝◧"
+      },
+      {
+        "command": "touchbar.editor.action.jumpToBracket",
+        "title": "→}"
+      },
+      {
+        "command": "touchbar.workbench.action.closePanel",
+        "title": "Close"
+      },
+      {
+        "command": "touchbar.workbench.action.toggleMaximizedPanel",
+        "title": "Max–Min"
       }
     ],
     "menus": {
       "touchBar": [
         {
-          "command": "editor.action.revealDefinition",
+          "command": "touchbar.editor.action.revealDefinition",
           "when": "editorFocus"
         },
         {
-          "command": "editor.action.goToReferences",
+          "command": "touchbar.editor.action.goToReferences",
           "when": "editorFocus"
         },
         {
-          "command": "workbench.action.terminal.toggleTerminal",
+          "command": "touchbar.workbench.action.terminal.toggleTerminal",
           "when": "editorFocus"
         },
         {
-          "command": "workbench.action.showCommands",
+          "command": "touchbar.workbench.action.showCommands",
           "when": "editorFocus"
         },
         {
-          "command": "editor.action.blockComment",
+          "command": "touchbar.editor.action.blockComment",
           "when": "editorHasMultipleSelections"
         },
         {
-          "command": "editor.action.rename",
+          "command": "touchbar.editor.action.rename",
           "when": "editorHasSelection"
         },
         {
-          "command": "editor.action.blockComment",
+          "command": "touchbar.editor.action.blockComment",
           "when": "editorHasSelection && !editorHasMultipleSelections"
         },
         {
-          "command": "workbench.action.toggleSidebarVisibility",
+          "command": "touchbar.workbench.action.toggleSidebarVisibility",
           "when": "editorFocus"
         },
         {
-          "command": "workbench.action.toggleSidebarVisibility",
+          "command": "touchbar.workbench.action.toggleSidebarVisibility",
           "when": "terminalFocus"
         },
         {
-          "command": "editor.action.copyLinesDownAction",
+          "command": "touchbar.editor.action.copyLinesDownAction",
           "when": "editorFocus"
         },
         {
-          "command": "workbench.action.terminal.focusNextPane",
+          "command": "touchbar.workbench.action.terminal.focusNextPane",
           "when": "terminalFocus"
         },
         {
-          "command": "workbench.action.splitEditor",
+          "command": "touchbar.workbench.action.splitEditor",
           "when": "editorFocus"
         },
         {
-          "command": "editor.action.jumpToBracket",
+          "command": "touchbar.editor.action.jumpToBracket",
           "when": "editorFocus"
         },
         {
-          "command": "workbench.action.closePanel",
+          "command": "touchbar.workbench.action.closePanel",
           "when": "terminalFocus"
         },
         {
-          "command": "workbench.action.toggleMaximizedPanel",
+          "command": "touchbar.workbench.action.toggleMaximizedPanel",
           "when": "terminalFocus"
-        },
-        {
-          "command": "touchbar.back",
-          "when": "editorFocus"
-        },
-        {
-          "command": "touchbar.forward",
-          "when": "editorFocus"
         }
       ]
-    },
-    "configuration": {
-      "type": "object",
-      "title": "Touch Bar",
-      "properties": {
-        "touchbar.back": {
-          "type": "boolean",
-          "default": true,
-          "description": "Show navigate back button (←) on Touch Bar"
-        },
-        "touchbar.forward": {
-          "type": "boolean",
-          "default": true,
-          "description": "Show navigate forward button (→) on Touch Bar"
-        }
-      }
     }
   },
   "devDependencies": {
