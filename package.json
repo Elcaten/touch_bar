@@ -49,7 +49,7 @@
       },
       {
         "command": "touchbar.editor.action.goToReferences",
-        "title": "→Ref"
+        "title": "→🔗"
       },
       {
         "command": "touchbar.workbench.action.terminal.toggleTerminal",
@@ -65,11 +65,11 @@
       },
       {
         "command": "touchbar.editor.action.rename",
-        "title": "✎_"
+        "title": "🖊"
       },
       {
         "command": "touchbar.editor.action.refactor",
-        "title": "⇄"
+        "title": "💡"
       },
       {
         "command": "touchbar.workbench.action.toggleSidebarVisibility",
