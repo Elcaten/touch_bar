@@ -120,7 +120,7 @@
         },
         {
           "command": "touchbar.editor.action.rename",
-          "when": "editorHasSelection"
+          "when": "editorFocus"
         },
         {
           "command": "touchbar.editor.action.blockComment",
